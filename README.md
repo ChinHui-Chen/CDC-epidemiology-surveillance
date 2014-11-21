@@ -3,6 +3,10 @@
 ==========
 
 ## Contributor:
-* Yen-Chieh Huang 黃彥傑 (Todo) <todo2015 AT gmail.com>
-* Che-An Lu 呂哲安 (JAST) <jast.lu AT gmail.com>
-* Chin-Hui Chen 陳晉暉 (DC) <dongogo AT gmail.com>
+* Che-An Lu 呂哲安 Email: jast.lu AT gmail.com
+  * Disease Classification related
+* Chin-Hui Chen 陳晉暉 Email: dongogo AT gmail.com
+  * Geographical Info Extraction related
+* Yen-Chieh Huang 黃彥傑 Email: todo2015 AT gmail.com
+  * Geographical Map Presentation related
+  
