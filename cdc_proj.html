@@ -4,5 +4,28 @@
 
 <body>
   <div id="map-canvas"></div>
+
+    <div class="pageHeader">
+    </div>
+    <div class="pageLeftMenu">
+      {{> diseaseSelector}}
+    </div>
+    <div class="pageContent">
+    </div>
+    <div class="pageFooter">
+      {{> footer}}
+    </div>
 </body>
+
+
+
+<template name="diseaseSelector">
+<p>We currently have {{collection_size}} links.</p>
+</template>
+
+<template name="footer">
+<input id="insertMarker" type="button" value="insert marker">
+<input id="removeMarker" type="button" value="remove marker">
+</template>
+
 

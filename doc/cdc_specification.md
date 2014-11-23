@@ -7,19 +7,21 @@
 
 3. Snippet display panel
    * Order by relevance score, publish time
-  
 
 
 ## Data Structure
 
 
-### Disease   
-* DNameEn  
-* DNameTC
+### Article   
+* DiseaseName
 * Source
 * Title
-* Snippet  
+* Snippet
 * Url
 * Language
-* PublishTime  
+* Location
+* Lat
+* Lng
+* PublishTime
 * CrawlTime
+
