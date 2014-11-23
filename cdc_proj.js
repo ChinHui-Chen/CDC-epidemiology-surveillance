@@ -6,11 +6,32 @@ if (Meteor.isClient) {
 
   // footer events
   Template.footer.events = {
-    'click #insertMarker' : function(){
-      updateMarkers( 'birdflu', 1, '2010/01/01', new Date(), '10' );
-    },
-    'click #removeMarker' : function(){
-      updateMarkers( 'birdflu', -1, '', '', '' );
+    'change input.disSelector' : function(event, template){
+      if( event.target.checked ){
+        updateMarkers( event.target.value, 1, $("#slider-range").slider("values")[0], $("#slider-range").slider("values")[1], '10' );
+      }else{
+        updateMarkers( event.target.value, -1, '', '', '' );
+      }
+    }
+  };
+
+  // footer rendered
+  Template.footer.rendered = function(){
+    var maxTime = (new Date()).getTime();
+    var minTime = maxTime - 86400000*30;
+
+    if (! $('#slider-range').data('uiSlider')) {
+      $( "#slider-range" ).slider({
+        range: true,
+        min: minTime,
+        max: maxTime,
+        step: 86400000,
+        values: [ minTime, maxTime ],
+        slide: function( event, ui ) {
+          $( "#amount" ).val( dateFormatter( new Date(ui.values[ 0 ])) + " - " + dateFormatter( new Date(ui.values[ 1 ])) );
+          updateMarkers( '', 0, ui.values[0], ui.values[1], '10' );
+        }
+      });
     }
   };
 
@@ -54,13 +75,20 @@ if (Meteor.isClient) {
       // delete from hash
       checkedItems[ query ] = {};
       delete checkedItems[ query ];
-
-      //console.log( JSON.stringify(checkedItems) );
     }
     // the same
     else if(flag == 0){
       // refresh markers
+      for(var key in checkedItems ){
+        var markers = queryToMarkers(key, startTime, endTime, num);
 
+        // remove current remarks
+        setAllMap( checkedItems[key], null );
+        checkedItems[key] = {};
+        // add new remarks
+        setAllMap( markers, map );
+        checkedItems[key] = markers;
+      }
     }
     // exception
     else{
@@ -98,6 +126,10 @@ if (Meteor.isClient) {
         });
       }
       return markers;
+  }
+
+  function dateFormatter( d ){
+    return d.getFullYear() + "/" + d.getMonth() + "/" + d.getDate();
   }
 
 }

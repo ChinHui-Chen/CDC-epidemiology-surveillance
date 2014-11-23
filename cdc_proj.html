@@ -4,20 +4,10 @@
 
 <body>
   <div id="map-canvas"></div>
-
-    <div class="pageHeader">
-    </div>
-    <div class="pageLeftMenu">
-      {{> diseaseSelector}}
-    </div>
-    <div class="pageContent">
-    </div>
     <div class="pageFooter">
       {{> footer}}
     </div>
 </body>
-
-
 
 <template name="diseaseSelector">
 <p>We currently have {{collection_size}} links.</p>
@@ -26,6 +16,12 @@
 <template name="footer">
 <input id="insertMarker" type="button" value="insert marker">
 <input id="removeMarker" type="button" value="remove marker">
+<input id="checkBirdflu" type="checkbox" class="disSelector" name="category" value="birdflu">Birdflu
+<input id="checkFlu" type="checkbox" class="disSelector" name="category" value="flu">Flu
+<label for="amount">Date Range:</label>
+<input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+<div id="slider-range"></div>
+eof
 </template>
 
 

@@ -1,5 +1,7 @@
 {
   "packages": {
-    "googlemaps": {}
+    "googlemaps": {},
+    "jquery-ui": {},
+    "jquery-ui-bootstrap": {}
   }
 }
