@@ -4,13 +4,29 @@
 
 <body>
   <div id="map-canvas"></div>
-    <div class="pageFooter">
-      {{> footer}}
-    </div>
+  <div class="pageFooter">
+    {{> footer}}
+  </div>
+  <div id="snippetPanel">
+    {{> snippetList}}
+  </div>
 </body>
 
+<template name="snippetList">
+<ul>
+  {{#each snippets }}
+  <li>  {{> snippetDetail}} </li>
+  {{/each }}
+</ul>
+</template>
+
+<template name="snippetDetail">
+<div id="snippet-{{_id}}">
+  <h1>{{Title}}</h1>
+</div>
+</template>
+
 <template name="diseaseSelector">
-<p>We currently have {{collection_size}} links.</p>
 </template>
 
 <template name="footer">
@@ -23,5 +39,4 @@
 <div id="slider-range"></div>
 eof
 </template>
-
 

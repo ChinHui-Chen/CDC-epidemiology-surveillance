@@ -1,14 +1,32 @@
 Articles = new Mongo.Collection("articles");
 var map;
 var checkedItems = new Object();
+var navDep = new Deps.Dependency;
 
 if (Meteor.isClient) {
+
+  // sinppet list helpers
+  Template.snippetList.helpers ({
+    snippets: function(){
+      // set depend var
+      navDep.depend();
+
+      // get query from checkedItems
+      var disArray = Object.keys(checkedItems) ;
+      var start = new Date( $("#slider-range").slider("values")[0] );
+      var end = new Date( $("#slider-range").slider("values")[1] );
+      return Articles.find({ DiseaseName: { $in: disArray },
+                             PublishTime: { $gte: start, $lt: end }
+                           },
+                           {sort : {PublishTime: -1} });
+    }
+  });
 
   // footer events
   Template.footer.events = {
     'change input.disSelector' : function(event, template){
       if( event.target.checked ){
-        updateMarkers( event.target.value, 1, $("#slider-range").slider("values")[0], $("#slider-range").slider("values")[1], '10' );
+        updateMarkers( event.target.value, 1, $("#slider-range").slider("values")[0], $("#slider-range").slider("values")[1], '' );
       }else{
         updateMarkers( event.target.value, -1, '', '', '' );
       }
@@ -29,7 +47,7 @@ if (Meteor.isClient) {
         values: [ minTime, maxTime ],
         slide: function( event, ui ) {
           $( "#amount" ).val( dateFormatter( new Date(ui.values[ 0 ])) + " - " + dateFormatter( new Date(ui.values[ 1 ])) );
-          updateMarkers( '', 0, ui.values[0], ui.values[1], '10' );
+          updateMarkers( '', 0, ui.values[0], ui.values[1], '' );
         }
       });
     }
@@ -94,6 +112,13 @@ if (Meteor.isClient) {
     else{
       throw "invalid flag parameter";
     }
+
+    // update snippet list
+    updateSnippetList();
+  }
+
+  function updateSnippetList(){
+    navDep.changed();
   }
 
   function setAllMap(markers, map){
