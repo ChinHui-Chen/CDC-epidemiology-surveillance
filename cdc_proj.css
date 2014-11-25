@@ -1,39 +1,39 @@
-
 /* CSS declarations go here */
-html, body, #map-canvas { height: 80%; margin: 0; padding: 0;}
+html, body, #map-canvas {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  z-index: 0;
+}
 
-.blended_grid{
-  display : block;
-  width : 900px;
-  overflow : auto;
-  margin : 30px auto 0 auto;
-}
-.pageHeader{
+.pageLeft{
   background-color : rgba(0, 0, 0, 0.5);
-  float : left;
-  clear : none;
-  height : 200px;
-  width : 900px;
-}
-.pageLeftMenu{
-  background-color : rgba(0, 0, 0, 0.5);
-  float : left;
-  clear : none;
-  height : 600px;
-  width : 200px;
-}
-.pageContent{
-  background-color : rgba(0, 0, 0, 0.5);
-  float : left;
-  clear : none;
-  height : 600px;
-  width : 700px;
+  position: absolute;
+  right: 0px;
+  top: 25px;
+  height : 70%;
+  width : 20%;
+  z-index : 1;
 }
 .pageFooter{
   background-color : rgba(0, 0, 0, 0.5);
-  float : left;
-  clear : none;
-  height : 100px;
-  width : 900px;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  height : 35%;
+  width : 70%;
+  z-index : 2;
 }
 
+#slider-range {
+  position: absolute;
+  height: 2px;
+  width: 80%;
+  left: 10%;
+}
+
+#amount {
+  border: 0;
+  color: #f6931f;
+  font-weight:bold;
+}

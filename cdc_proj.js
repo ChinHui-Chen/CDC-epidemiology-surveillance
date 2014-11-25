@@ -1,11 +1,11 @@
 Articles = new Mongo.Collection("articles");
-var map;
-var checkedItems = new Object();
-var navDep = new Deps.Dependency;
 
 if (Meteor.isClient) {
+  var map;
+  var checkedItems = new Object();
+  var navDep = new Deps.Dependency;
 
-  // sinppet list helpers
+  // snippet list helpers
   Template.snippetList.helpers ({
     snippets: function(){
       // set depend var
@@ -22,8 +22,8 @@ if (Meteor.isClient) {
     }
   });
 
-  // footer events
-  Template.footer.events = {
+  // diseaseSelector events
+  Template.diseaseSelector.events = {
     'change input.disSelector' : function(event, template){
       if( event.target.checked ){
         updateMarkers( event.target.value, 1, $("#slider-range").slider("values")[0], $("#slider-range").slider("values")[1], '' );
@@ -33,8 +33,8 @@ if (Meteor.isClient) {
     }
   };
 
-  // footer rendered
-  Template.footer.rendered = function(){
+  // diseaseSelector rendered
+  Template.diseaseSelector.rendered = function(){
     var maxTime = (new Date()).getTime();
     var minTime = maxTime - 86400000*30;
 
@@ -137,6 +137,7 @@ if (Meteor.isClient) {
                                          PublishTime: {$gte: start, $lt: end} }
                                       ).fetch();
 
+      console.log(subArticles.length);
       // translate to markers
       for(var i=0 ; i<subArticles.length ; i++)
       {

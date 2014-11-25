@@ -4,13 +4,27 @@
 
 <body>
   <div id="map-canvas"></div>
+  <div class="pageLeft">
+    {{> diseaseSelector}}
+  </div>
   <div class="pageFooter">
     {{> footer}}
-  </div>
-  <div id="snippetPanel">
     {{> snippetList}}
   </div>
+  <div class="snippetPanel">
+  </div>
 </body>
+
+<template name="diseaseSelector">
+<input id="checkEbola" type="checkbox" class="disSelector" name="category" value="ebola">Ebola<br>
+<input id="checkBirdflu" type="checkbox" class="disSelector" name="category" value="birdflu">Birdflu<br>
+<input id="checkFlu" type="checkbox" class="disSelector" name="category" value="flu">Flu<br>
+<input type="text" id="amount" readonly ><br>
+<div id="slider-range"></div>
+</template>
+
+<template name="footer">
+</template>
 
 <template name="snippetList">
 <ul>
@@ -24,19 +38,5 @@
 <div id="snippet-{{_id}}">
   <h1>{{Title}}</h1>
 </div>
-</template>
-
-<template name="diseaseSelector">
-</template>
-
-<template name="footer">
-<input id="insertMarker" type="button" value="insert marker">
-<input id="removeMarker" type="button" value="remove marker">
-<input id="checkBirdflu" type="checkbox" class="disSelector" name="category" value="birdflu">Birdflu
-<input id="checkFlu" type="checkbox" class="disSelector" name="category" value="flu">Flu
-<label for="amount">Date Range:</label>
-<input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-<div id="slider-range"></div>
-eof
 </template>
 
