@@ -14,6 +14,7 @@
 
 ### Article   
 * DiseaseName
+* Relevance
 * Source
 * Title
 * Snippet
