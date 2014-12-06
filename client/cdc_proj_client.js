@@ -1,9 +1,16 @@
-Articles = new Mongo.Collection("articles");
-
 if (Meteor.isClient) {
   var map;
   var checkedItems = new Object();
   var navDep = new Deps.Dependency;
+
+  // disease selector helpers
+  Template.diseaseSelector.helpers ({
+    diseaseOpts: function(){
+      var arr = Articles.find( {}, {fields: {'DiseaseName': 1}}).fetch();
+      var distArr = _.uniq( arr, false, function(d){return d.DiseaseName} );
+      return distArr;
+    }
+  });
 
   // snippet list helpers
   Template.snippetList.helpers ({
@@ -160,37 +167,3 @@ if (Meteor.isClient) {
 
 }
 
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-
-    /*
-    Articles.insert({
-      DiseaseName: "birdflu",
-      Source: "CNN",
-      Title: "bird flu title cnn",
-      Snippet: "bird flu snippet cnn",
-      Url: "www.cnn.com",
-      Language: "en",
-      Location: "Taiwan",
-      Lat: "23",
-      Lng: "120",
-      PublishTime: new Date(),
-      CrawlTime: new Date()
-    });
-
-    Articles.insert({
-      DiseaseName: "birdflu",
-      Source: "BBC",
-      Title: "bird flu title bbc",
-      Snippet: "bird flu snippet bbc",
-      Url: "www.bbc.com",
-      Language: "en",
-      Location: "Japan",
-      Lat: "24",
-      Lng: "121",
-      PublishTime: new Date(),
-      CrawlTime: new Date()
-    });
-   */
-  });
-}

@@ -1,0 +1,39 @@
+<head>
+  <title>CDC Project</title>
+</head>
+
+<body>
+  <div id="map-canvas"></div>
+  <div class="pageRight">
+    {{> diseaseSelector}}
+    <input type="text" id="amount" readonly ><br>
+    <div id="slider-range"></div>
+  </div>
+  <div class="pageFooter">
+    {{> snippetList}}
+  </div>
+</body>
+
+<template name="diseaseSelector">
+<ul>
+  {{#each diseaseOpts }}
+  <li>
+  <input id="opt-{{DiseaseName}}" type="checkbox" class="disSelector" name="category" value="{{DiseaseName}}"> {{DiseaseName}}
+  </li>
+  {{/each }}
+</ul>
+</template>
+
+<template name="snippetList">
+<ul>
+  {{#each snippets }}
+  <li>  {{> snippetDetail}} </li>
+  {{/each }}
+</ul>
+</template>
+
+<template name="snippetDetail">
+<div id="snippet-{{_id}}">
+  <h1>{{Title}}</h1>
+</div>
+</template>
