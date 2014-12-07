@@ -1,12 +1,15 @@
 <head>
   <title>CDC Project</title>
 </head>
-
+	
 <body>
   <div id="map-canvas"></div>
   <div class="pageRight">
+    <div id="disease-selector">
+    <h3>Disease</h3>
     {{> diseaseSelector}}
-    <input type="text" id="amount" readonly ><br>
+    </div>
+    <div id="slider-display"></div>
     <div id="slider-range"></div>
   </div>
   <div class="pageFooter">
@@ -15,13 +18,11 @@
 </body>
 
 <template name="diseaseSelector">
-<ul>
   {{#each diseaseOpts }}
-  <li>
-  <input id="opt-{{DiseaseName}}" type="checkbox" class="disSelector" name="category" value="{{DiseaseName}}"> {{DiseaseName}}
-  </li>
+<p>
+<input id="dOpts-{{DiseaseName}}" type="checkbox" class="disSelector" name="category" value="{{DiseaseName}}">{{DiseaseNameCap}}
+</p>
   {{/each }}
-</ul>
 </template>
 
 <template name="snippetList">
@@ -34,6 +35,7 @@
 
 <template name="snippetDetail">
 <div id="snippet-{{_id}}">
-  <h1>{{Title}}</h1>
+  <p>{{Title}}</p>
 </div>
 </template>
+

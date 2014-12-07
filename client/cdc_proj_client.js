@@ -8,6 +8,12 @@ if (Meteor.isClient) {
     diseaseOpts: function(){
       var arr = Articles.find( {}, {fields: {'DiseaseName': 1}}).fetch();
       var distArr = _.uniq( arr, false, function(d){return d.DiseaseName} );
+      
+      for(var i=0 ; i<distArr.length ;i++)
+      {
+          distArr[i].DiseaseNameCap = capitaliseFirstLetter(distArr[i].DiseaseName);
+      }
+      
       return distArr;
     }
   });
@@ -45,6 +51,8 @@ if (Meteor.isClient) {
     var maxTime = (new Date()).getTime();
     var minTime = maxTime - 86400000*30;
 
+    document.getElementById("slider-display").innerHTML = "<p>" + dateFormatter( new Date(minTime)) + " - " + dateFormatter( new Date(maxTime) ) + "</p>" ;
+
     if (! $('#slider-range').data('uiSlider')) {
       $( "#slider-range" ).slider({
         range: true,
@@ -53,7 +61,9 @@ if (Meteor.isClient) {
         step: 86400000,
         values: [ minTime, maxTime ],
         slide: function( event, ui ) {
-          $( "#amount" ).val( dateFormatter( new Date(ui.values[ 0 ])) + " - " + dateFormatter( new Date(ui.values[ 1 ])) );
+            
+          document.getElementById("slider-display").innerHTML = "<p>" + dateFormatter( new Date(ui.values[ 0 ])) + " - " + dateFormatter( new Date(ui.values[ 1 ])) + "</p>" ;
+          
           updateMarkers( '', 0, ui.values[0], ui.values[1], '' );
         }
       });
@@ -75,7 +85,7 @@ if (Meteor.isClient) {
     map.setCenter(new google.maps.LatLng( 23.363556, 120.730438 ));
   }
   );
-
+  
   // function to update mark
   // query: the disease to insert/remove (ignore if flag=0)
   // flag: 1 stands for addition, -1 stands for deletion, 0 stands for the same query
@@ -161,9 +171,15 @@ if (Meteor.isClient) {
       return markers;
   }
 
-  function dateFormatter( d ){
+  function dateFormatter(d){
     return d.getFullYear() + "/" + d.getMonth() + "/" + d.getDate();
   }
 
+  // reference: http://goo.gl/u2zyk
+  function capitaliseFirstLetter(string)
+  {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  
 }
 
