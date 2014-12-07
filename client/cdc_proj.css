@@ -25,6 +25,7 @@ html, body, #map-canvas {
 
 .pageFooter{
   background-color : rgba(0, 0, 0, 0.5);
+  overflow: auto;
   position: absolute;
   left: 0px;
   bottom: 0px;
@@ -59,7 +60,17 @@ html, body, #map-canvas {
   left: 10%;
 }
 
-p, h3{
+#snippet-list{
+  position: absolute;
+  left: 5%;  
+  right: 5%;
+}
+
+a, p, h3{
   font-family: Arial, Sans-serif;
   color: white;
+}
+
+.gray_font{
+  color:gray;
 }

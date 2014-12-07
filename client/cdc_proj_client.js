@@ -28,10 +28,17 @@ if (Meteor.isClient) {
       var disArray = Object.keys(checkedItems) ;
       var start = new Date( $("#slider-range").slider("values")[0] );
       var end = new Date( $("#slider-range").slider("values")[1] );
-      return Articles.find({ DiseaseName: { $in: disArray },
+      var arr = Articles.find({ DiseaseName: { $in: disArray },
                              PublishTime: { $gte: start, $lt: end }
                            },
-                           {sort : {PublishTime: -1} });
+                           {sort : {PublishTime: -1} }).fetch();      
+      for(var i=0 ; i<arr.length ; i++)
+      {
+        if(arr[i].Relevance){
+          arr[i].Relevance = arr[i].Relevance.substring(0,4);      
+        }
+      }
+      return arr;
     }
   });
 
@@ -48,7 +55,8 @@ if (Meteor.isClient) {
 
   // diseaseSelector rendered
   Template.diseaseSelector.rendered = function(){
-    var maxTime = (new Date()).getTime();
+    //var maxTime = (new Date()).getTime();
+    var maxTime = (new Date("2014-11-25")).getTime();
     var minTime = maxTime - 86400000*30;
 
     document.getElementById("slider-display").innerHTML = "<p>" + dateFormatter( new Date(minTime)) + " - " + dateFormatter( new Date(maxTime) ) + "</p>" ;
@@ -172,7 +180,7 @@ if (Meteor.isClient) {
   }
 
   function dateFormatter(d){
-    return d.getFullYear() + "/" + d.getMonth() + "/" + d.getDate();
+    return d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
   }
 
   // reference: http://goo.gl/u2zyk

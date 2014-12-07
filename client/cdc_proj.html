@@ -13,7 +13,9 @@
     <div id="slider-range"></div>
   </div>
   <div class="pageFooter">
+    <div id="snippet-list" >
     {{> snippetList}}
+    </div>
   </div>
 </body>
 
@@ -26,16 +28,15 @@
 </template>
 
 <template name="snippetList">
-<ul>
   {{#each snippets }}
-  <li>  {{> snippetDetail}} </li>
+    {{> snippetDetail}} 
   {{/each }}
-</ul>
 </template>
 
 <template name="snippetDetail">
 <div id="snippet-{{_id}}">
-  <p>{{Title}}</p>
+  <h3><a href="{{Url}}" target="_blank">{{Source}}: {{Title}}</a> ({{DiseaseName}}:{{Relevance}} / {{Location}})</h3>
+  <p class="gray_font">{{PublishTime}}</p>
+  <p>{{Snippet}}</p>
 </div>
 </template>
-
