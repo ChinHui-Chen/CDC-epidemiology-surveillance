@@ -4,7 +4,7 @@
 	
 <body>
   <div id="map-canvas"></div>
-  <div class="pageRight">
+  <div id="panel-right" class="opacityEffect">
     <div id="disease-selector">
     <h3>Disease</h3>
     {{> diseaseSelector}}
@@ -12,7 +12,7 @@
     <div id="slider-display"></div>
     <div id="slider-range"></div>
   </div>
-  <div class="pageFooter">
+  <div id="panel-footer" class="opacityEffect">
     <div id="snippet-list" >
     {{> snippetList}}
     </div>
@@ -34,7 +34,7 @@
 </template>
 
 <template name="snippetDetail">
-<div id="snippet-{{_id}}">
+<div id="snippet-{{DiseaseName}}-{{rid}}" class="snippetDtl" data-id="{{rid}}">
   <h3><a href="{{Url}}" target="_blank">{{Source}}: {{Title}}</a> ({{DiseaseName}}:{{Relevance}} / {{Location}})</h3>
   <p class="gray_font">{{PublishTime}}</p>
   <p>{{Snippet}}</p>

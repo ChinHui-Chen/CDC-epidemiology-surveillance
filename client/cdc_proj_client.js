@@ -2,6 +2,7 @@ if (Meteor.isClient) {
   var map;
   var checkedItems = new Object();
   var navDep = new Deps.Dependency;
+  var infowindow ;
 
   // disease selector helpers
   Template.diseaseSelector.helpers ({
@@ -37,10 +38,28 @@ if (Meteor.isClient) {
         if(arr[i].Relevance){
           arr[i].Relevance = arr[i].Relevance.substring(0,4);      
         }
+        // assign raw id
+        arr[i].rid = arr[i]._id.toString().split("\"")[1];
       }
       return arr;
     }
   });
+  
+  // snippet detail events
+  Template.snippetDetail.events = {
+    'mouseover div[id^=snippet-]' : function(event, template){
+      var eid = event.target.id;
+      if(eid.indexOf("snippet-") > -1){
+        var arr = eid.split("-");
+        var disName = arr[1];
+        var rid = arr[2];
+
+        var marker = checkedItems[disName][rid];
+        map.panTo(marker.getPosition());
+        
+      }
+    }
+  };
 
   // diseaseSelector events
   Template.diseaseSelector.events = {
@@ -56,7 +75,7 @@ if (Meteor.isClient) {
   // diseaseSelector rendered
   Template.diseaseSelector.rendered = function(){
     //var maxTime = (new Date()).getTime();
-    var maxTime = (new Date("2014-11-25")).getTime();
+    var maxTime = (new Date("2014-11-30")).getTime();
     var minTime = maxTime - 86400000*30;
 
     document.getElementById("slider-display").innerHTML = "<p>" + dateFormatter( new Date(minTime)) + " - " + dateFormatter( new Date(maxTime) ) + "</p>" ;
@@ -91,6 +110,8 @@ if (Meteor.isClient) {
     };
     map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
     map.setCenter(new google.maps.LatLng( 23.363556, 120.730438 ));
+    
+    infowindow = new google.maps.InfoWindow();
   }
   );
   
@@ -148,7 +169,35 @@ if (Meteor.isClient) {
 
   function setAllMap(markers, map){
     for (var k in markers){
-      markers[k].setMap(map);
+      var marker = markers[k];
+      marker.setMap(map);
+      
+      if(map != null){
+      // add event listerner for marker
+        google.maps.event.addListener(marker, 'click', function(event) {
+          map.panTo(this.getPosition());
+        
+          var rid = this.rid;
+
+          // show info window 
+          infowindow.close();
+          var desc;
+          if(this.loc == "NULL"){
+            desc = "<p class=\"gray_font\">"+this.dis+"</p>";
+          }else{
+            desc = "<p class=\"gray_font\">"+this.dis+" in "+this.loc+"</p>";          
+          }
+          infowindow.setContent("<div class=\"infobox\"><h4>" + this.title + "</h4>"+desc+"</div>");
+          infowindow.open(map, this);
+        
+          // scroll to the snippet 
+          $("#panel-footer").animate({ 
+            scrollTop: $( "div[data-id="+rid+"]" ).position().top
+          }, 600);
+        }); 
+      }
+      // remove event listerner
+      
     }
   }
 
@@ -166,14 +215,20 @@ if (Meteor.isClient) {
       // translate to markers
       for(var i=0 ; i<subArticles.length ; i++)
       {
-        var id = subArticles[i]['_id'] ;
+        var rid = subArticles[i]['_id'].toString().split("\"")[1] ;
         var lat = subArticles[i]['Lat'];
         var lng = subArticles[i]['Lng'];
-
+        var image = '/images/red.png';
         //console.log( "id=" + id + " lat=" + lat + " lng=" + lng );
-        markers[ id ] = new google.maps.Marker({
+        markers[ rid ] = new google.maps.Marker({
           position: new google.maps.LatLng( lat, lng ),
-          map: map
+          animation: google.maps.Animation.DROP,
+          map: map,
+          rid: rid,
+          title: subArticles[i]['Title'],
+          loc: subArticles[i]['Location'],
+          dis: subArticles[i]['DiseaseName'],
+          icon: image
         });
       }
       return markers;
