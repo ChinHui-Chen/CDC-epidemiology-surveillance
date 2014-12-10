@@ -88,6 +88,12 @@ sub get_location()
     $article_href->{'Lat'} = $latlng->{geometry}{location}->{lat};
     $article_href->{'Lng'} = $latlng->{geometry}{location}->{lng};
   }
+  else
+  {
+    $article_href->{'Location'} = "NULL";
+    $article_href->{'Lat'} = "0";
+    $article_href->{'Lng'} = "0";
+  }
 }
 
 # classification
