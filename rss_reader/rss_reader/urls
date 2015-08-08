@@ -1,0 +1,31 @@
+CNN_World$http://rss.cnn.com/rss/edition_world.rss
+CNN_Health$http://rss.cnn.com/rss/cnn_health.rss
+CNN_Latest$http://rss.cnn.com/rss/cnn_latest.rss
+
+BBC_World$http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/world/rss.xml
+BBC_NewPage$http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/front_page/rss.xml
+BBC_Health$http://newsrss.bbc.co.uk/rss/newsonline_uk_edition/health/rss.xml
+
+GoogleEng_Top$http://news.google.com/news?ned=us&topic=h&output=rss
+//GoogleNews - World
+//http://news.google.com/news?ned=us&topic=w&output=rss
+//GoogleNews - Health
+//http://news.google.com/news?ned=us&topic=m&output=rss
+
+//ABC news
+//http://my.abcnews.go.com/rsspublic/health_rss20.xml
+//US news
+//http://www.usnews.com/rss/news/index.rss
+//http://tw.news.yahoo.com/rss/politics
+//中時 焦點
+//http://rss.chinatimes.com/rss/focus-u.rss
+//中時 社會
+//http://rss.chinatimes.com/rss/social-u.rss
+//中時 國際
+//http://rss.chinatimes.com/rss/international-u.rss
+//中時 大陸
+//http://rss.chinatimes.com/rss/mainland-u.rss
+//中時 地方
+//http://rss.chinatimes.com/rss/local-u.rss
+//中時 生活
+//http://rss.chinatimes.com/rss/life-u.rss
