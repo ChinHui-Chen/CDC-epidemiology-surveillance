@@ -8,6 +8,12 @@
 * Install packages
 `mrt add googlemaps`
 
+* Import sample data
+
+### Run
+
+`meteor run`
+
 ### Contributor:
 * Che-An Lu 呂哲安 Email: jast.lu AT gmail.com
   * Disease Classification related
