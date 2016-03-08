@@ -8,7 +8,9 @@
 * Install packages
 `mrt add googlemaps`
 
-* Import sample data
+* Import demo data
+`cd data/script`
+`sh import.sh`
 
 ### Run
 
